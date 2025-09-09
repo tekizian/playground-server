@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000;
 
 const corsConfig = {
   origin: (origin, cb) => {
-    console.info(origin);
     if (!origin || ALLOWED_HOSTS.includes(origin)) {
       cb(null, true);
     } else {
