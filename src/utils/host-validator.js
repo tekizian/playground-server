@@ -1,4 +1,4 @@
-export const ALLOWED_HOSTS = process.env("ALLOWED_HOSTS").split(",");
+export const ALLOWED_HOSTS = (process.env.ALLOWED_HOSTS || "").split(",");
 
 export const validateHost = (req, res, next) => {
   const host = req.headers.host;
@@ -8,5 +8,3 @@ export const validateHost = (req, res, next) => {
     res.status(403).json({ error: "Access denied" });
   }
 };
-
-export default validateHost;
