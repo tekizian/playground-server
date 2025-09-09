@@ -1,9 +1,8 @@
-import * as dotenv from "dotenv";
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { validateHost, ALLOWED_HOSTS } from "./src/utils/host-validator.js";
 
-dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
