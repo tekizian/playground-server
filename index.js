@@ -1,24 +1,26 @@
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
-import { validateHost, ALLOWED_HOSTS } from "./src/utils/host-validator.js";
+import { auth } from "express-oauth2-jwt-bearer";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
+const PORT = process.env.PORT || 5000;
+const { AUTH0_AUDIENCE, AUTH0_ISSUER_BASE_URL, ALLOWED_HOSTS } = process.env;
+
+const jwtCheck = auth({
+  audience: AUTH0_AUDIENCE,
+  issuerBaseURL: AUTH0_ISSUER_BASE_URL,
+  tokenSigningAlg: "RS256",
+});
 const corsConfig = {
-  origin: (origin, cb) => {
-    if (!origin || ALLOWED_HOSTS.includes(origin)) {
-      cb(null, true);
-    } else {
-      cb(new Error(`CORS error: HOST ${origin} attempted`));
-    }
-  },
+  origin: ALLOWED_HOSTS[0],
+  allowedHeadres: ["Content-Type", "Authorization"],
 };
 
 app.use(cors(corsConfig));
+app.use(jwtCheck);
 app.use(express.json());
-app.use(validateHost);
 
 app.get("/api/hw", (_req, res) => {
   res.json({ message: "Hello, World!" });
