@@ -14,7 +14,7 @@ const jwtCheck = auth({
   tokenSigningAlg: "RS256",
 });
 const corsConfig = {
-  origin: ALLOWED_HOSTS[0],
+  origin: ALLOWED_HOSTS,
   allowedHeadres: ["Content-Type", "Authorization"],
 };
 
