@@ -1,0 +1,23 @@
+meta {
+  name: Add Item
+  type: http
+  seq: 2
+}
+
+put {
+  url: {{BASE_URI}}/todo
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "id": "foobarbafbaz323!",
+    "text": "Not getting a 404",
+    "isChecked": false
+  }
+}
+
+settings {
+  encodeUrl: true
+}
