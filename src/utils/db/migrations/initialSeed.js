@@ -8,6 +8,6 @@ const initialSeed = () =>
     text VARCHAR(50) NOT NULL,
     completed BOOLEAN DEFAULT FALSE,
     PRIMARY KEY (id, user_id)
-) PARTITION BY HASH (user_id);`);
+);`);
 
 export default initialSeed;
