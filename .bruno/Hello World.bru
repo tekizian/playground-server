@@ -1,0 +1,19 @@
+meta {
+  name: Hello World
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URI}}/api/hw
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{$oauth2.credentials.access_token}}
+}
+
+settings {
+  encodeUrl: true
+}

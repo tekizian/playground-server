@@ -1,0 +1,12 @@
+meta {
+  name: Todo
+  seq: 3
+}
+
+auth {
+  mode: bearer
+}
+
+auth:bearer {
+  token: {{$oauth2.credentials.access_token}}
+}
