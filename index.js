@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { auth } from "express-oauth2-jwt-bearer";
-import https from "node:https";
 
 import todo from "./src/todo/index.js";
 import pool from "./src/utils/db/index.js";
@@ -15,29 +14,6 @@ const jwksUrl = `${AUTH0_ISSUER_BASE_URL}.well-known/jwks.json`;
 
 let jwtCheck;
 try {
-  console.log(`Checking connectivity to Auth0 JWKS endpoint: ${jwksUrl}`);
-  await new Promise((resolve, reject) => {
-    https
-      .get(jwksUrl, (res) => {
-        if (res.statusCode === 200) {
-          console.log("Successfully connected to Auth0 JWKS endpoint.");
-          resolve(res);
-        } else {
-          console.error(
-            `Failed to connect to Auth0 JWKS endpoint. Status code: ${res.statusCode}`
-          );
-          console.error("This may be the source of the InvalidRequestError.");
-          // Consider adding code to gracefully exit or log more details
-          reject(res.statusCode);
-        }
-      })
-      .on("error", (e) => {
-        console.error(
-          `Error during Auth0 JWKS connectivity test: ${e.message}`
-        );
-        reject(e);
-      });
-  });
   console.log("Attempting Auth0 middleware initialization");
   jwtCheck = auth({
     audience: AUTH0_AUDIENCE,
@@ -60,9 +36,6 @@ app.use(express.json());
 
 app.get("/api/hw", jwtCheck, (_req, res) => {
   res.json({ message: "Hello, World!" });
-});
-app.get("/hw", (req, res) => {
-  res.json({ message: `Hello, ${req.body.name}` });
 });
 
 app.use("/todo", jwtCheck, todo);
