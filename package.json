@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "start:prod": "node --env-file=.env.prod index.js",
+    "start:prod": "node index.js",
     "dev": "nodemon index.js",
     "migration:prod": "node --env-file=.env.prod ./scripts/db/runMigrations.js",
     "migration:dev": "--env-file=.env node ./scripts/db/runMigrations.js"
