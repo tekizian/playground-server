@@ -10,11 +10,20 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const { AUTH0_AUDIENCE, AUTH0_ISSUER_BASE_URL, ALLOWED_HOSTS } = process.env;
 
-const jwtCheck = auth({
-  audience: AUTH0_AUDIENCE,
-  issuerBaseURL: AUTH0_ISSUER_BASE_URL,
-  tokenSigningAlg: "RS256",
-});
+let jwtCheck;
+try {
+  console.log("Attempting Auth0 middleware initialization");
+  jwtCheck = auth({
+    audience: AUTH0_AUDIENCE,
+    issuerBaseURL: AUTH0_ISSUER_BASE_URL,
+    tokenSigningAlg: "RS256",
+  });
+  console.log("Auth0 middleware initialized successfully");
+} catch (err) {
+  console.error("Auth0 middleware initialization failed");
+  console.error(err);
+  process.exit(1);
+}
 const corsConfig = {
   origin: ALLOWED_HOSTS,
   allowedHeadres: ["Content-Type", "Authorization"],
