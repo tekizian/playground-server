@@ -56,14 +56,16 @@ const corsConfig = {
 };
 
 app.use(cors(corsConfig));
-app.use(jwtCheck);
 app.use(express.json());
 
-app.get("/api/hw", (_req, res) => {
+app.get("/api/hw", jwtCheck, (_req, res) => {
   res.json({ message: "Hello, World!" });
 });
+app.get("/hw", (req, res) => {
+  res.json({ message: `Hello, ${req.body.name}` });
+});
 
-app.use("/todo", todo);
+app.use("/todo", jwtCheck, todo);
 
 process.on("unhandledRejection", (reason, promise) => {
   console.error("Unhandled Rejection at:", promise, "reason:", reason);
