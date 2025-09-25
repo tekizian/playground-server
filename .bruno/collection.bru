@@ -5,11 +5,11 @@ auth {
 auth:oauth2 {
   grant_type: authorization_code
   callback_url: https://usebruno.com/oauth-callback
-  authorization_url: https://{{process.env.AUTH0_DOMAIN}}/authorize
-  access_token_url: https://{{process.env.AUTH0_DOMAIN}}/oauth/token
+  authorization_url: https://{{AUTH0_DOMAIN}}/authorize
+  access_token_url: https://{{AUTH0_DOMAIN}}/oauth/token
   refresh_token_url: 
-  client_id: {{process.env.AUTH0_CLIENT_ID}}
-  client_secret: {{process.env.AUTH0_CLIENT_SECRET}}
+  client_id: {{AUTH0_CLIENT_ID}}
+  client_secret: {{AUTH0_CLIENT_SECRET}}
   scope: 
   state: 
   pkce: false
@@ -21,10 +21,10 @@ auth:oauth2 {
   auto_refresh_token: false
 }
 
-auth:oauth2:additional_params:auth_req:headers {
-  audience: {{process.env.AUTH0_AUDIENCE}}
+auth:oauth2:additional_params:auth_req:queryparams {
+  audience: {{AUTH0_AUDIENCE}}
 }
 
 auth:oauth2:additional_params:access_token_req:body {
-  ~audience: {{process.env.AUTH0_AUDIENCE}}
+  ~audience: {{AUTH0_AUDIENCE}}
 }
