@@ -17,6 +17,7 @@ try {
     audience: AUTH0_AUDIENCE,
     issuerBaseURL: AUTH0_ISSUER_BASE_URL,
     tokenSigningAlg: "RS256",
+    jwksUri: `${AUTH0_ISSUER_BASE_URL}.well-known/jwks.json`,
   });
   console.log("Auth0 middleware initialized successfully");
 } catch (err) {
@@ -38,6 +39,12 @@ app.get("/api/hw", (_req, res) => {
 });
 
 app.use("/todo", todo);
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  // Log the error and gracefully shut down
+  process.exit(1);
+});
 
 pool
   .connect()
