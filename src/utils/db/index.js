@@ -8,6 +8,7 @@ const connectionConfiguration = {
   host: config.get("DB_HOST"),
   database: config.get("DB_NAME"),
   port: config.get("DB_PORT"),
+  options: `-c search_path=${config.get("DB_SCHEMA")},public`,
 };
 
 const pool = new Pool(connectionConfiguration);
