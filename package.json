@@ -10,7 +10,7 @@
     "start:prod": "node index.js",
     "dev": "nodemon index.js",
     "migration:prod": "node --env-file=.env.prod ./scripts/db/runMigrations.js",
-    "migration:dev": "--env-file=.env node ./scripts/db/runMigrations.js"
+    "migration:dev": "node --env-file=.env ./scripts/db/runMigrations.js"
   },
   "repository": {
     "type": "git",
